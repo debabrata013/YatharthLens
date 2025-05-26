@@ -7,14 +7,14 @@ const isPublicRoute = createRouteMatcher([
   "/sign-in(.*)",
   "/sign-up(.*)",
 ]);
-
-export default clerkMiddleware((auth, req) => {
-  if (!auth().userId && !isPublicRoute(req)) {
-    const signInUrl = new URL("/sign-in", req.url);
-    signInUrl.searchParams.set("redirect_url", req.url);
-    return NextResponse.redirect(signInUrl);
-  }
-});
+export default clerkMiddleware()
+// export default clerkMiddleware((auth, req) => {
+//   if (!auth().userId && !isPublicRoute(req)) {
+//     const signInUrl = new URL("/sign-in", req.url);
+//     signInUrl.searchParams.set("redirect_url", req.url);
+//     return NextResponse.redirect(signInUrl);
+//   }
+// });
 
 export const config = {
   matcher: [
