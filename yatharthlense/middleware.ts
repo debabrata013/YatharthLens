@@ -1,20 +1,19 @@
-// middleware.ts
-import { authMiddleware } from "@clerk/nextjs";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
-export default authMiddleware({
-  publicRoutes: [
-    "/",
-    "/sign-in(.*)",
-    "/sign-up(.*)"
-  ],
-  afterAuth(auth, req, evt) {
-    // Handle users who aren't authenticated
-    if (!auth.userId && !auth.isPublicRoute) {
-      const signInUrl = new URL('/sign-in', req.url);
-      signInUrl.searchParams.set('redirect_url', req.url);
-      return Response.redirect(signInUrl);
-    }
-  },
+// Define which routes are public
+const isPublicRoute = createRouteMatcher([
+  "/",
+  "/sign-in(.*)",
+  "/sign-up(.*)",
+]);
+
+export default clerkMiddleware((auth, req) => {
+  if (!auth().userId && !isPublicRoute(req)) {
+    const signInUrl = new URL("/sign-in", req.url);
+    signInUrl.searchParams.set("redirect_url", req.url);
+    return NextResponse.redirect(signInUrl);
+  }
 });
 
 export const config = {
