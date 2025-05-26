@@ -4,10 +4,14 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { useRouter } from "next/navigation";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
+  const router = useRouter();
+    const handleGetStarted = () => {
+    router.push("/sign-in");
+  };
   // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
@@ -70,7 +74,9 @@ export default function Navbar() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label="Try it now"
+                    onClick={handleGetStarted}
               >
+
                 Try it now
               </motion.button>
             </div>
@@ -119,6 +125,7 @@ export default function Navbar() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.25 }}
                 aria-label="Try it now"
+                 onClick={handleGetStarted}
               >
                 Try it now
               </motion.button>

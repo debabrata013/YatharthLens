@@ -2,8 +2,14 @@
 
 import { Play, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useRouter } from "next/navigation";
 
 export default function Hero() {
+  const router = useRouter();
+
+    const handleGetStarted = () => {
+    router.push("/sign-in");
+  };
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -70,6 +76,7 @@ export default function Hero() {
               <button 
                 className="bg-indigo-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition-all duration-300 flex items-center justify-center group focus:ring-2 focus:ring-indigo-400 focus:outline-none"
                 aria-label="Get Started"
+                onClick={handleGetStarted}
               >
                 Get Started
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
