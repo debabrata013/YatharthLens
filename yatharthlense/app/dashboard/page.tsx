@@ -68,9 +68,7 @@ export default async function DashboardPage() {
       <div className="flex-1 min-h-screen">
         {/* Topbar */}
         <Topbar 
-          isDark={isDark} 
-          toggleDark={toggleDark} 
-          onMenuClick={() => setSidebarOpen(true)} 
+          
         />
 
         
